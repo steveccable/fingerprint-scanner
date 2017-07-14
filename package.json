@@ -3,12 +3,16 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
+		"android": "react-native run-android",
+		"ios": "react-native run-ios",
+		"lint": "./node_modules/.bin/eslint --ext .js .",
 		"start": "node node_modules/react-native/local-cli/cli.js start",
 		"test": "jest"
 	},
 	"dependencies": {
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.45.1",
+		"react-native-fingerprint-scanner": "^2.1.3",
 		"react-navigation": "^1.0.0-beta.11",
 		"react-redux": "^5.0.5",
 		"redux": "^3.7.1"
@@ -16,6 +20,9 @@
 	"devDependencies": {
 		"babel-jest": "20.0.3",
 		"babel-preset-react-native": "2.0.0",
+		"eslint": "^4.2.0",
+		"eslint-plugin-react": "^7.1.0",
+		"estraverse": "^4.2.0",
 		"jest": "20.0.4",
 		"react-test-renderer": "16.0.0-alpha.12"
 	},

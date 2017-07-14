@@ -4,20 +4,20 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import { StackNavigator } from 'react-navigation';
-import Login from './Login';
-import Account from './Account';
+import React from 'react';
+import { View } from 'react-native';
+import LoginContainer from '../containers/LoginContainer';
+import AccountContainer from '../containers/AccountContainer';
 
-const App = StackNavigator({
-  Login: { screen: Login },
-  Account: { screen: Account }
-});
+class App extends React.Component {
+  render() {
+    const contents = this.props.authed.credentials ? <AccountContainer /> : <LoginContainer />;
+    return (
+      <View style={{marginTop: 40}}>
+        {contents}
+      </View>
+    );
+  }
+}
 
 export default App;
