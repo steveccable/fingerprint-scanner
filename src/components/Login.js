@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Text, TextInput, View } from 'react-native';
+import { Alert, Button, Text, TextInput, View } from 'react-native';
 
 class Login extends React.Component {
   constructor(props) {
@@ -14,10 +14,14 @@ class Login extends React.Component {
   attemptLogin() {
     const { hasLoggedInManually } = this.props;
     if (hasLoggedInManually) {
-      this.props.loginWithFinger('credentials');
+      this.props.loginWithFinger(this.props.firebaseApp);
     } else {
-      const newCredentials = 'un=' + this.state.username + '&pw=' + this.state.password;
-      this.props.loginManually(newCredentials);
+      this.props.firebaseApp.auth().signInWithEmailAndPassword(this.state.username, this.state.password)
+        .then(() => {
+          this.props.loginManually({ username: this.state.username, password: this.state.password });
+        }).catch((error) => {
+          Alert.alert('Login Failed', error.message);
+        });
     }
   }
 

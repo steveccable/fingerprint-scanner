@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { login, manualLogin } from '../actions/actions';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import Login from '../components/Login';
+import { Alert } from 'react-native';
 
 const mapStateToProps = (state) => {
   return {
@@ -17,9 +18,22 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const loginWithFinger = (dispatch, storedCredentials) => {
-  const dispatchCallback = () => dispatch(login(storedCredentials));
-  FingerprintScanner.authenticate({ description: 'Scan your fingerprint to login'}).then(dispatchCallback);
+const loginWithFinger = (dispatch, firebaseApp) => {
+  const storedCredentials = { username: 'steve@steve.steve', password: 'Aaaaaa' };
+  const dispatchCallback = () => {
+    firebaseApp
+      .auth()
+      .signInWithEmailAndPassword(storedCredentials.username, storedCredentials.password)
+      .then(() => dispatch(login(storedCredentials)))
+      .catch((error) => {
+        Alert.alert('Login Failed', error.message);
+      });
+  };
+  FingerprintScanner
+    .authenticate({ description: 'Scan your fingerprint to login'})
+    .then(dispatchCallback).catch((error) => {
+      Alert.alert('Finger Login Failed', error.message);
+    });
 };
 
 const loginManually = (dispatch, credentials) => {
