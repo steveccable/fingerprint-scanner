@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { AppRegistry } from 'react-native';
+import { AppRegistry, AsyncStorage, Text } from 'react-native';
 import AppContainer from './src/containers/AppContainer';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -18,13 +18,27 @@ const config = {
 
 const firebaseApp = firebase.initializeApp(config);
 
+let store = null;
+
 class FingerprintScanner extends React.Component {
+  async getStoredCredentials() {
+    const credentials = await AsyncStorage.getItem('userCredentials');
+    store = createStore(reducers, { auth: { hasLoggedInManually: !!credentials } });
+    this.forceUpdate();
+  }
+
+  componentWillMount() {
+    this.getStoredCredentials();    
+  }
+
   render() {
-    const store = createStore(reducers, {});
-    return (
+    // const store = createStore(reducers, {});
+    return store ? (
       <Provider store={store}>
         <AppContainer firebaseApp={firebaseApp}/>
       </Provider>
+    ) : (
+      <Text>Store not yet initialized.  You shouldn't see me.</Text>
     );
   }
 }

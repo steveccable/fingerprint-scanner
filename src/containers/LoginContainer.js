@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { login, manualLogin } from '../actions/actions';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import Login from '../components/Login';
-import { Alert } from 'react-native';
+import { Alert, AsyncStorage } from 'react-native';
 
 const mapStateToProps = (state) => {
   return {
@@ -19,8 +19,10 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const loginWithFinger = (dispatch, firebaseApp) => {
-  const storedCredentials = { username: 'steve@steve.steve', password: 'Aaaaaa' };
-  const dispatchCallback = () => {
+  // const storedCredentials = { username: 'steve@steve.steve', password: 'Aaaaaa' };
+  const fetchCredentials = () => AsyncStorage.getItem('userCredentials');
+  const dispatchCallback = (credentialsJSON) => {
+    const storedCredentials = JSON.parse(credentialsJSON);
     firebaseApp
       .auth()
       .signInWithEmailAndPassword(storedCredentials.username, storedCredentials.password)
@@ -31,13 +33,14 @@ const loginWithFinger = (dispatch, firebaseApp) => {
   };
   FingerprintScanner
     .authenticate({ description: 'Scan your fingerprint to login'})
-    .then(dispatchCallback).catch((error) => {
+    .then(fetchCredentials).then(dispatchCallback).catch((error) => {
       Alert.alert('Finger Login Failed', error.message);
     });
 };
 
 const loginManually = (dispatch, credentials) => {
   dispatch(manualLogin(credentials));
+  AsyncStorage.setItem('userCredentials', JSON.stringify(credentials));
 };
 
 const LoginContainer = connect(
