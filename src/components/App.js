@@ -11,7 +11,7 @@ import AccountContainer from '../containers/AccountContainer';
 
 class App extends React.Component {
   render() {
-    const contents = this.props.authed.credentials ? <AccountContainer /> : <LoginContainer firebaseApp={this.props.firebaseApp} />;
+    const contents = this.props.authed.credentials ? <AccountContainer /> : <LoginContainer />;
     return (
       <View style={{marginTop: 40}}>
         {contents}

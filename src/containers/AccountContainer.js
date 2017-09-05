@@ -10,8 +10,14 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+const mapStateToProps = (state) => {
+  return {
+    firebaseApp: state.firebaseApp
+  };
+};
+
 const AccountContainer = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 ) (Account);
 

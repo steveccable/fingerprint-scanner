@@ -7,7 +7,8 @@ import { Alert, AsyncStorage } from 'react-native';
 const mapStateToProps = (state) => {
   return {
     credentials: state.auth.credentials,
-    hasLoggedInManually: state.auth.hasLoggedInManually
+    hasLoggedInManually: state.auth.hasLoggedInManually,
+    firebaseApp: state.firebaseApp
   };
 };
 

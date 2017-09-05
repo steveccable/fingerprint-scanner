@@ -23,19 +23,19 @@ let store = null;
 class FingerprintScanner extends React.Component {
   async getStoredCredentials() {
     const credentials = await AsyncStorage.getItem('userCredentials');
-    store = createStore(reducers, { auth: { hasLoggedInManually: !!credentials } });
+    store = createStore(reducers, { auth: { hasLoggedInManually: !!credentials }, firebaseApp });
     this.forceUpdate();
   }
 
   componentWillMount() {
-    this.getStoredCredentials();    
+    this.getStoredCredentials();
   }
 
   render() {
     // const store = createStore(reducers, {});
     return store ? (
       <Provider store={store}>
-        <AppContainer firebaseApp={firebaseApp}/>
+        <AppContainer/>
       </Provider>
     ) : (
       <Text>Store not yet initialized.  You shouldn't see me.</Text>

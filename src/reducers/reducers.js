@@ -14,7 +14,13 @@ function auth(state = {}, action) {
   return state;
 }
 
+function firebaseApp(state = {}, action) {
+  // Nothing.... FOR NOW
+  return state;
+}
+
 const fingerprintScannerApp = combineReducers({
-  auth
+  auth,
+  firebaseApp
 });
 export default fingerprintScannerApp;

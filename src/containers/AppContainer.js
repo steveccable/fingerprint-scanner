@@ -3,7 +3,8 @@ import App from '../components/App';
 
 const mapStateToProps = (state) => {
   return {
-    authed: state.auth
+    authed: state.auth,
+    firebaseApp: state.firebaseApp
   };
 };
 
