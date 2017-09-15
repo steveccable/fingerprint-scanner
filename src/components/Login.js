@@ -1,6 +1,7 @@
 import React from 'react';
 import { Alert, Button, Text, TextInput, View } from 'react-native';
 
+// Component representing a login page
 class Login extends React.Component {
   constructor(props) {
     super(props);

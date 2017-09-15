@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Text, View } from 'react-native';
 import * as Firebase from 'firebase';
 
+// Component representing a user's bank account
 class Account extends React.Component {
   constructor(props) {
     super(props);

@@ -9,6 +9,7 @@ import { View } from 'react-native';
 import LoginContainer from '../containers/LoginContainer';
 import AccountContainer from '../containers/AccountContainer';
 
+// Component for the overall application
 class App extends React.Component {
   render() {
     const contents = this.props.authed.credentials ? <AccountContainer /> : <LoginContainer />;

@@ -19,4 +19,10 @@ These are the two demos we followed for [authetication](http://bitvbit.blogspot.
 
 ## Redux
 
+We use [Redux](http://redux.js.org/) to manage our internal state, in particular our authentication state and our firebase app.
 
+Each component is structured as a container-component pair, with the container interacting with Redux to map the Redux state to props appropriately and update the state when interacted with.
+
+For an example of both mappings, see [LoginContainer.js](https://github.com/steveccable/fingerprint-scanner/blob/master/src/containers/LoginContainer.js).  In this file, we do both types of connections.  Since the [Login.js](https://github.com/steveccable/fingerprint-scanner/blob/master/src/containers/Login.js) component requires information about whether or not a user has logged in manually before, we must map that information from the Redux state down to through the container.  In addition, when a user attempts to login and is successful, we must dispatch a login action of the appropriate type to the Redux state to update the stored credentials.
+
+Our various actions and reducers for Redux can be found in [actions.js](https://github.com/steveccable/fingerprint-scanner/blob/master/src/actions/actions.js) and [reducers.js](https://github.com/steveccable/fingerprint-scanner/blob/master/src/actions/reducers.js) respectively, but are largely just passing data into our Redux store to update the state.  For our project, we did not find any cases where more involved reducers or middleware were necessary.
